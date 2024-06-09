@@ -299,11 +299,22 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 
 /datum/preferences/proc/_load_species(S)
 	var/species_name
+	testing("begin _load_species()")
 	S["species"] >> species_name
 	if(species_name)
 		var/newtype = GLOB.species_list[species_name]
 		if(newtype)
 			pref_species = new newtype
+			if(!spec_check())
+				testing("spec_check() failed on type [newtype] and name [species_name], defaulting to [default_species].")
+				pref_species = new default_species.type()
+			else
+				testing("spec_check() succeeded on type [newtype] and name [species_name].")
+		else
+			testing("GLOB.species_list failed on name [species_name], defaulting to [default_species].")
+			pref_species = new default_species.type()
+	else
+		pref_species = new default_species.type()
 
 /datum/preferences/proc/_load_flaw(S)
 	var/charflaw_type
@@ -377,20 +388,17 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 		WRITE_FILE(S["features["mcolor3"]"]	, "#FFF")
 
 	if(!S["feature_ethcolor"] || S["feature_ethcolor"] == "#000")
-		WRITE_FILE(S["feature_ethcolor"]	, "9c3030")
+		WRITE_FILE(S["feature_ethcolor"], "9c3030")
 
 	//Character
 	_load_appearence(S)
 
-	var/patron_name
-	S["selected_patron"]	>> patron_name
-	if(patron_name)
-		selected_patron = GLOB.patronlist[patron_name]
+	var/patron_typepath
+	S["selected_patron"]	>> patron_typepath
+	if(patron_typepath)
+		selected_patron = GLOB.patronlist[patron_typepath]
 		if(!selected_patron) //failsafe
-			selected_patron = GLOB.patronlist[GLOB.patronlist[1]]
-		// var/newtype = GLOB.patronlist[patron_name]
-		// if(newtype)
-			// selected_patron = new newtype
+			selected_patron = GLOB.patronlist[default_patron]
 
 	//Custom names
 	for(var/custom_name_id in GLOB.preferences_custom_names)
@@ -401,12 +409,12 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	S["prefered_security_department"] >> prefered_security_department
 
 	//Jobs
-	S["joblessrole"]		>> joblessrole
+	S["joblessrole"] >> joblessrole
 	//Load prefs
 	S["job_preferences"] >> job_preferences
 
 	//Quirks
-	S["all_quirks"]			>> all_quirks
+	S["all_quirks"] >> all_quirks
 
 	S["update_mutant_colors"]			>> update_mutant_colors
 	update_mutant_colors = sanitize_integer(update_mutant_colors, FALSE, TRUE, initial(update_mutant_colors))
@@ -461,6 +469,12 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	S["body_markings"] >> body_markings
 	body_markings = SANITIZE_LIST(body_markings)
 	validate_body_markings()
+
+	var/list/valid_skin_tones = pref_species.get_skin_list()
+	var/list/valid_skin_colors = list()
+	for(var/skin_tone in pref_species.get_skin_list())
+		valid_skin_colors += valid_skin_tones[skin_tone]
+	skin_tone = sanitize_inlist(skin_tone, valid_skin_colors, valid_skin_colors[1])
 
 	joblessrole	= sanitize_integer(joblessrole, 1, 3, initial(joblessrole))
 	//Validate job prefs
@@ -532,7 +546,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	WRITE_FILE(S["all_quirks"]			, all_quirks)
 
 	//Patron
-	WRITE_FILE(S["selected_patron"]		, selected_patron.name)
+	WRITE_FILE(S["selected_patron"]		, selected_patron.type)
 
 	// Organs
 	WRITE_FILE(S["customizer_entries"] , customizer_entries)

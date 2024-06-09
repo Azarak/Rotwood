@@ -2,9 +2,9 @@
 	race = /datum/species/anthromorph
 
 /datum/species/anthromorph
-	name = "Anthromorph" 
+	name = "Wild-Kin" 
 	id = "anthromorph"
-	desc = "A fully-furred bipedal fox. Most enjoy meats, and fried foods, but will eat just about anything."
+	desc = "In time you will learn the history of this race"
 	default_color = "444"
 	species_traits = list(
 		MUTCOLORS,
@@ -16,7 +16,7 @@
 	inherent_biotypes = MOB_ORGANIC|MOB_HUMANOID
 	attack_verb = "slash"
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_MAGIC | MIRROR_PRIDE | ERT_SPAWN | RACE_SWAP | SLIME_EXTRACT
-	possible_ages = list(AGE_ADULT, AGE_MIDDLEAGED, AGE_OLD)
+	possible_ages = list(AGE_YOUNG, AGE_ADULT, AGE_MIDDLEAGED, AGE_OLD)
 	limbs_icon_m = 'icons/roguetown/mob/bodies/m/mt.dmi'
 	limbs_icon_f = 'icons/roguetown/mob/bodies/f/fm.dmi'
 	dam_icon = 'icons/roguetown/mob/bodies/dam/dam_male.dmi'

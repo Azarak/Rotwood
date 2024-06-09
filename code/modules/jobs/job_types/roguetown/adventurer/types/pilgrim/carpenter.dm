@@ -1,7 +1,9 @@
 /datum/advclass/carpenter
 	name = "Carpenter"
+	tutorial = "A skilled carpenter, able to manipulate wood to suit their needs \
+	building forts and stores, carpenting floors, putting up crosses. You can do it all with enough logs"
 	allowed_sexes = list("male", "female")
-	allowed_races = ALL_RACES_TYPES
+	allowed_races = CLOTHED_RACES_TYPES
 	outfit = /datum/outfit/job/roguetown/adventurer/carpenter
 	isvillager = TRUE
 	ispilgrim = TRUE
@@ -9,7 +11,8 @@
 /datum/outfit/job/roguetown/adventurer/carpenter/pre_equip(mob/living/carbon/human/H)
 	..()
 	if(H.mind)
-		H.mind.adjust_skillrank(/datum/skill/combat/axesmaces, 2, TRUE) // They use hammers, sawes and axes all day.
+		H.mind.adjust_skillrank(/datum/skill/combat/axes, 2, TRUE) // They use hammers, sawes and axes all day.
+		H.mind.adjust_skillrank(/datum/skill/combat/maces, 2, TRUE) 
 		H.mind.adjust_skillrank(/datum/skill/combat/crossbows, pick(0,0,1), TRUE)
 		H.mind.adjust_skillrank(/datum/skill/misc/athletics, 4, TRUE) 
 		H.mind.adjust_skillrank(/datum/skill/combat/bows, pick(0,1), TRUE)

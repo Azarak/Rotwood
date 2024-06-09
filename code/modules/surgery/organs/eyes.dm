@@ -33,6 +33,11 @@
 	var/lighting_alpha
 	var/no_glasses
 	var/damaged	= FALSE	//damaged indicates that our eyes are undergoing some level of negative effect
+
+	var/left_poked = FALSE
+	var/right_poked = FALSE
+
+
 	var/eye_color = "#FFFFFF"
 	var/heterochromia = FALSE
 	var/second_color = "#FFFFFF"
@@ -94,9 +99,9 @@
 		if((organ_flags & ORGAN_FAILING))
 			C.become_blind(EYE_DAMAGE)
 		else if(damage > 30)
-			C.overlay_fullscreen("eye_damage", /obj/screen/fullscreen/impaired, 2)
+			C.overlay_fullscreen("eye_damage", /atom/movable/screen/fullscreen/impaired, 2)
 		else
-			C.overlay_fullscreen("eye_damage", /obj/screen/fullscreen/impaired, 1)
+			C.overlay_fullscreen("eye_damage", /atom/movable/screen/fullscreen/impaired, 1)
 	//called once since we don't want to keep clearing the screen of eye damage for people who are below 20 damage
 	else if(damaged)
 		damaged = FALSE
@@ -125,6 +130,11 @@
 			lighting_alpha = LIGHTING_PLANE_ALPHA_VISIBLE
 			sight_flags &= ~SEE_BLACKNESS
 	owner.update_sight()
+
+
+/obj/item/organ/eyes/night_vision/argonian
+	name = "sissean eyes"
+	desc = ""
 
 /obj/item/organ/eyes/night_vision/alien
 	name = "alien eyes"
@@ -159,6 +169,12 @@
 	desc = ""
 	see_in_dark = 3
 	lighting_alpha = LIGHTING_PLANE_ALPHA_LESSER_NV_TRAIT
+
+/obj/item/organ/eyes/goblin
+	name = "goblin eyes"
+	desc = ""
+	see_in_dark = 15
+	lighting_alpha = 200
 
 ///Robotic
 
@@ -428,7 +444,7 @@
 
 
 /obj/item/organ/eyes/moth
-	name = "moth eyes"
+	name = "fluvian eyes"
 	desc = ""
 	flash_protect = FLASH_PROTECTION_SENSITIVE
 	accessory_type = /datum/sprite_accessory/eyes/moth

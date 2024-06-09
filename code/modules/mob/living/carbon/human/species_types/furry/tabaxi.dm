@@ -17,7 +17,7 @@
 	skin_tone_wording = "Fur Colors"
 	species_traits = list(EYECOLOR,HAIR,FACEHAIR,LIPS,STUBBLE, MUTCOLORS)
 	inherent_traits = list(TRAIT_NOMOBSWAP)
-	possible_ages = list(AGE_ADULT, AGE_MIDDLEAGED, AGE_OLD)
+	possible_ages = list(AGE_YOUNG, AGE_ADULT, AGE_MIDDLEAGED, AGE_OLD)
 	limbs_icon_m = 'icons/roguetown/mob/bodies/m/mt.dmi'
 	limbs_icon_f = 'icons/roguetown/mob/bodies/f/fm.dmi'
 	dam_icon = 'icons/roguetown/mob/bodies/dam/dam_male.dmi'
@@ -40,7 +40,6 @@
 	specstats = list("strength" = 1, "perception" = 1, "intelligence" = -1, "constitution" = 0, "endurance" = 1, "speed" = 1, "fortune" = 1)
 	specstats_f = list("strength" = -1, "perception" = 1, "intelligence" = 2, "constitution" = -2, "endurance" = 0, "speed" = 2, "fortune" = 2)
 	enflamed_icon = "widefire"
-	possible_faiths = list(FAITH_PSYDON)
 	organs = list(
 		ORGAN_SLOT_BRAIN = /obj/item/organ/brain,
 		ORGAN_SLOT_HEART = /obj/item/organ/heart,
@@ -68,6 +67,7 @@
 		/datum/customizer/bodypart_feature/hair/facial/humanoid,
 		/datum/customizer/bodypart_feature/accessory,
 		/datum/customizer/bodypart_feature/face_detail,
+		/datum/customizer/organ/snout/tabaxi,
 		/datum/customizer/organ/testicles/external,
 		/datum/customizer/organ/penis/knotted,
 		/datum/customizer/organ/breasts/animal,
@@ -77,6 +77,9 @@
 		/datum/body_marking_set/tiger_dark
 	)
 	body_markings = list(
+	)
+	languages = list(
+		/datum/language/common,
 	)
 
 /datum/species/tabaxi/check_roundstart_eligible()
@@ -130,7 +133,6 @@
 /datum/species/tabaxi/on_species_gain(mob/living/carbon/C, datum/species/old_species)
 	..()
 	RegisterSignal(C, COMSIG_MOB_SAY, PROC_REF(handle_speech))
-	C.grant_language(/datum/language/common)
 
 /datum/species/tabaxi/on_species_loss(mob/living/carbon/C)
 	. = ..()

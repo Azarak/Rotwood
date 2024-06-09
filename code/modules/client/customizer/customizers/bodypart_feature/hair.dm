@@ -44,7 +44,7 @@
 	var/datum/customizer_entry/hair/hair_entry = entry
 	switch(href_list["customizer_task"])
 		if("hair_color")
-			var/new_color = input(user, "Choose your hair color:", "Character Preference", hair_entry.hair_color) as color|null
+			var/new_color = color_pick_sanitized_lumi(user, "Choose your hair color:", "Character Preference", hair_entry.hair_color)
 			if(!new_color)
 				return
 			hair_entry.hair_color = sanitize_hexcolor(new_color, 6, TRUE)
@@ -59,7 +59,7 @@
 		if("natural_gradient_color")
 			if(!allows_natural_gradient)
 				return
-			var/new_color = input(user, "Choose your natural gradient color:", "Character Preference", hair_entry.natural_color) as color|null
+			var/new_color = color_pick_sanitized_lumi(user, "Choose your natural gradient color:", "Character Preference", hair_entry.natural_color)
 			if(!new_color)
 				return
 			hair_entry.natural_color = sanitize_hexcolor(new_color, 6, TRUE)
@@ -74,7 +74,7 @@
 		if("dye_gradient_color")
 			if(!allows_dye_gradient)
 				return
-			var/new_color = input(user, "Choose your dye gradient color:", "Character Preference", hair_entry.dye_color) as color|null
+			var/new_color = color_pick_sanitized_lumi(user, "Choose your dye gradient color:", "Character Preference", hair_entry.dye_color)
 			if(!new_color)
 				return
 			hair_entry.dye_color = sanitize_hexcolor(new_color, 6, TRUE)
@@ -301,6 +301,12 @@
 	var/color = pick(HAIR_COLOR_LIST)
 	hair_entry.hair_color = color
 
+/datum/customizer/bodypart_feature/hair/head/humanoid/bald_default
+	customizer_choices = list(/datum/customizer_choice/bodypart_feature/hair/head/humanoid/bald_default)
+
+/datum/customizer_choice/bodypart_feature/hair/head/humanoid/bald_default/get_random_accessory(datum/customizer_entry/entry, datum/preferences/prefs)
+	return /datum/sprite_accessory/hair/head/bald
+
 /datum/customizer/bodypart_feature/hair/facial/humanoid
 	customizer_choices = list(/datum/customizer_choice/bodypart_feature/hair/facial/humanoid)
 
@@ -353,6 +359,12 @@
 	var/datum/customizer_entry/hair/hair_entry = entry
 	var/color = pick(HAIR_COLOR_LIST)
 	hair_entry.hair_color = color
+
+/datum/customizer/bodypart_feature/hair/facial/humanoid/shaved_default
+	customizer_choices = list(/datum/customizer_choice/bodypart_feature/hair/facial/humanoid/shaved_default)
+
+/datum/customizer_choice/bodypart_feature/hair/facial/humanoid/shaved_default/get_random_accessory(datum/customizer_entry/entry, datum/preferences/prefs)
+	return /datum/sprite_accessory/hair/facial/shaved
 
 /datum/customizer/bodypart_feature/hair/head/vox
 	customizer_choices = list(/datum/customizer_choice/bodypart_feature/hair/head/vox)

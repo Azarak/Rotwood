@@ -1,12 +1,12 @@
 /datum/job/roguetown/alchemist
 	title = "Alchemist"
 	flag = ALCHEMIST
-	department_flag = SERFS
+	department_flag = YEOMEN
 	faction = "Station"
 	total_positions = 0
 	spawn_positions = 0
 
-	allowed_races = ALL_RACES_TYPES
+	allowed_races = CLOTHED_RACES_TYPES
 
 	tutorial = "You came to rockhill either to seek knowledge or riches."
 
@@ -14,6 +14,7 @@
 	display_order = 6
 	give_bank_account = 12
 	min_pq = -10
+	max_pq = null
 
 /datum/outfit/job/roguetown/alchemist
 	name = "Alchemist"

@@ -7,8 +7,8 @@
 	generic_gender_feature_adjust(appearance_list, organ, bodypart, owner, OFFSET_BELT, OFFSET_BELT_F)
 
 /datum/sprite_accessory/penis/get_icon_state(obj/item/organ/organ, obj/item/bodypart/bodypart, mob/living/carbon/owner)
-	var/obj/item/organ/penis/pp = organ
-	return "[icon_state]_[pp.penis_size]"
+	//var/obj/item/organ/penis/pp = organ
+	return "[icon_state]_1" //For now just the small state
 
 /datum/sprite_accessory/penis/is_visible(obj/item/organ/organ, obj/item/bodypart/bodypart, mob/living/carbon/owner)
 	return is_human_part_visible(owner, HIDEJUMPSUIT|HIDECROTCH)
@@ -21,12 +21,12 @@
 /datum/sprite_accessory/penis/knotted
 	icon_state = "knotted"
 	name = "Knotted"
-	default_colors = list("e74b4b")
+	default_colors = list("C52828")
 
 /datum/sprite_accessory/penis/knotted2
 	name = "Knotted 2"
 	icon_state = "knotted2"
-	default_colors = list("e74b4b")
+	default_colors = list("C52828")
 
 /datum/sprite_accessory/penis/flared
 	icon_state = "flared"
@@ -36,27 +36,27 @@
 /datum/sprite_accessory/penis/barbknot
 	icon_state = "barbknot"
 	name = "Barbed, Knotted"
-	default_colors = list("e74b4b")
+	default_colors = list("C52828")
 
 /datum/sprite_accessory/penis/tapered
 	icon_state = "tapered"
 	name = "Tapered"
-	default_colors = list("e74b4b")
+	default_colors = list("C52828")
 
 /datum/sprite_accessory/penis/tentacle
 	icon_state = "tentacle"
 	name = "Tentacled"
-	default_colors = list("e74b4b")
+	default_colors = list("C52828")
 
 /datum/sprite_accessory/penis/hemi
 	icon_state = "hemi"
 	name = "Hemi"
-	default_colors = list("e74b4b")
+	default_colors = list("C52828")
 
 /datum/sprite_accessory/penis/hemiknot
 	icon_state = "hemiknot"
 	name = "Knotted Hemi"
-	default_colors = list("e74b4b")
+	default_colors = list("C52828")
 
 /datum/sprite_accessory/testicles
 	icon = 'icons/mob/sprite_accessory/genitals/testicles.dmi'
@@ -76,6 +76,7 @@
 /datum/sprite_accessory/testicles/pair
 	name = "Pair"
 	icon_state = "pair"
+	color_key_defaults = list(KEY_SKIN_COLOR)
 
 /datum/sprite_accessory/breasts
 	icon = 'icons/mob/sprite_accessory/genitals/breasts.dmi'
@@ -87,7 +88,7 @@
 	return "[icon_state]_[badonkers.breast_size]"
 
 /datum/sprite_accessory/breasts/adjust_appearance_list(list/appearance_list, obj/item/organ/organ, obj/item/bodypart/bodypart, mob/living/carbon/owner)
-	generic_gender_feature_adjust(appearance_list, organ, bodypart, owner, OFFSET_ARMOR, OFFSET_ARMOR_F)
+	generic_gender_feature_adjust(appearance_list, organ, bodypart, owner, OFFSET_ID, OFFSET_ID_F)
 
 /datum/sprite_accessory/breasts/is_visible(obj/item/organ/organ, obj/item/bodypart/bodypart, mob/living/carbon/owner)
 	return is_human_part_visible(owner, HIDEBOOB|HIDEJUMPSUIT)
@@ -131,7 +132,7 @@
 /datum/sprite_accessory/vagina/spade
 	icon_state = "spade"
 	name = "Spade"
-	default_colors = list("e74b4b")
+	default_colors = list("C52828")
 
 /datum/sprite_accessory/vagina/furred
 	icon_state = "furred"

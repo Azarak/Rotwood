@@ -42,6 +42,11 @@ GLOBAL_LIST_EMPTY(respawncounts)
 	if(!usr || usr != mob)	//stops us calling Topic for somebody else's client. Also helps prevent usr=null
 		return
 
+	// RATWOOD EDIT START
+	if(!maturity_prompt_whitelist && !SSmaturity_guard.age_check(usr, href_list))
+		return 0
+	// RATWOOD EDIT END
+
 	// asset_cache
 	var/asset_cache_job
 	if(href_list["asset_cache_confirm_arrival"])
@@ -114,6 +119,11 @@ GLOBAL_LIST_EMPTY(respawncounts)
 		if(SSticker.current_state != GAME_STATE_FINISHED)
 			return
 		view_rogue_manifest()
+		return
+	
+	// Schizohelp
+	if(href_list["schizohelp"])
+		answer_schizohelp(locate(href_list["schizohelp"]))
 		return
 
 	switch(href_list["_src_"])
@@ -236,6 +246,7 @@ GLOBAL_LIST_EMPTY(external_rsc_urls)
 		connecting_admin = TRUE
 	else if(GLOB.deadmins[ckey])
 		verbs += /client/proc/readmin
+		verbs += /client/proc/adminwho
 		connecting_admin = TRUE
 	if(CONFIG_GET(flag/autoadmin))
 		if(!GLOB.admin_datums[ckey])
@@ -595,7 +606,8 @@ GLOBAL_LIST_EMPTY(external_rsc_urls)
 		qdel(query_client_in_db)
 		return
 	if(!query_client_in_db.NextRow())
-		if (CONFIG_GET(flag/panic_bunker) && !holder && !GLOB.deadmins[ckey])
+		// if (CONFIG_GET(flag/panic_bunker) && !holder && !GLOB.deadmins[ckey])
+		if (CONFIG_GET(flag/panic_bunker) && !holder && !GLOB.deadmins[ckey] && !(ckey in GLOB.bunker_bypasses)) //MODULAR RATWOOD
 			log_access("Failed Login: [key] - New account attempting to connect during panic bunker")
 			message_admins("<span class='adminnotice'>Failed Login: [key] - New account attempting to connect during panic bunker</span>")
 			to_chat(src, CONFIG_GET(string/panic_bunker_message))
@@ -1038,7 +1050,7 @@ GLOBAL_LIST_EMPTY(external_rsc_urls)
 	var/pos = 0
 	for(var/D in GLOB.cardinals)
 		pos++
-		var/obj/screen/char_preview/O = LAZYACCESS(char_render_holders, "[D]")
+		var/atom/movable/screen/char_preview/O = LAZYACCESS(char_render_holders, "[D]")
 		if(O)
 			screen -= O
 			char_render_holders -= O
@@ -1059,8 +1071,8 @@ GLOBAL_LIST_EMPTY(external_rsc_urls)
 				O.screen_loc = "character_preview_map:0:2,0:10"
 
 /client/proc/clear_character_previews()
-	for(var/obj/screen/S in char_render_holders)
-//		var/obj/screen/S = char_render_holders[index]
+	for(var/atom/movable/screen/S in char_render_holders)
+//		var/atom/movable/screen/S = char_render_holders[index]
 		screen -= S
 		qdel(S)
 	char_render_holders = list()

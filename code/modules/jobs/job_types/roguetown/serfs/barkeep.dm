@@ -1,12 +1,12 @@
 /datum/job/roguetown/barkeep
 	title = "Barkeep"
 	flag = BARKEEP
-	department_flag = SERFS
+	department_flag = YEOMEN
 	faction = "Station"
 	total_positions = 1
 	spawn_positions = 1
 
-	allowed_races = ALL_RACES_TYPES
+	allowed_races = CLOTHED_RACES_TYPES
 
 	tutorial = "Liquor Lodging and Lavish Baths, youre the life of the party and a rich bastard because of it. Well before that pesky merchant came around and convinced people to take up the bottle instead of the tankred, you were the reason the hardworking men and women of this town could rest."
 
@@ -14,6 +14,7 @@
 	display_order = JDO_BARKEEP
 	give_bank_account = 43
 	min_pq = -4
+	max_pq = null
 
 /datum/outfit/job/roguetown/barkeep/pre_equip(mob/living/carbon/human/H)
 	..()
